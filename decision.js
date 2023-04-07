@@ -154,6 +154,7 @@ const questionList = {
         </button>\
         <br>\
         <span style='font-weight:400'>We recommend DUET algorithm</span>
+        <br><br>
         <img src="/img/duet.png" class="img-fluid"></img>`,
         options: [
         ]
