@@ -5,7 +5,7 @@ const questionList = {
     {
         question: "What is the anatomic location of the uveitis?",
         options: [
-            { label: "Anterior uveitis", nextQuestion: "course" },
+            { label: "Anterior uveitis (only available)", nextQuestion: "course" },
             { label: "Intermediate uveitis", nextQuestion: "In_progress" },
             { label: "Posterior uveitis", nextQuestion: "In_progress" },
             { label: "Panuveitis", nextQuestion: "In_progress" }
@@ -184,7 +184,8 @@ function questionBoxes(currentQuestion,back){
     <button type='button' class='btn btn-outline-primary' id='submit-${currentQuestion}'>
         Next
     </button>
-    <div id='message-${currentQuestion}'></div>`;
+    <div id='message-${currentQuestion}' style="color:red;"></div>
+    `;
 
     //append everything into container
     document.getElementById("container").appendChild(box);
