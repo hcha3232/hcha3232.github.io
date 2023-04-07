@@ -177,11 +177,11 @@ function questionBoxes(currentQuestion,back){
 
     //Create button
     box.innerHTML += `
-
-    <button type='button' class='btn btn-outline-primary' id='back-${currentQuestion}'>
+    <div style="margin-bottom:10px"></div>
+    <button type='button' class='btn btn-primary' id='back-${currentQuestion}'>
         Back
     </button>
-    <button type='button' class='btn btn-outline-primary' id='submit-${currentQuestion}'>
+    <button type='button' class='btn btn-primary' id='submit-${currentQuestion}'>
         Next
     </button>
     <div id='message-${currentQuestion}' style="color:red;"></div>
