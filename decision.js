@@ -35,19 +35,19 @@ const questionList = {
         question: `Next step: <span style='font-weight:400'>Acute bilateral uveitis algorithm</span>\
         <br>\
         Differential diagnosis: \
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             Sarcoidosis
         </button>
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             JIA
         </button>
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             Drug-induced
         </button>
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             TINU
         </button>
@@ -77,8 +77,8 @@ const questionList = {
     {
         question: "Increased IOP or iris atrophy/transillumination?",
         options: [
-            { label: "yes", nextQuestion: "viralAU_algorithm"},
-            { label: "no", nextQuestion: "HLA_B27"},
+            { label: "Yes", nextQuestion: "viralAU_algorithm"},
+            { label: "No", nextQuestion: "HLA_B27"},
         ]
     },
     fus_algorithm :
@@ -86,11 +86,11 @@ const questionList = {
         question: `Next step: <span style='font-weight:400'>FUS algorithm</span>\
         <br>\
         Differential diagnosis:
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             FUS
         </button>
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             CMV
         </button>`,
@@ -102,15 +102,15 @@ const questionList = {
         question: `Next step: <span style='font-weight:400'>Viral AU algorithm</span>\
         <br>\
         Differential diagnosis: 
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             CMV
         </button>
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             HSV
         </button>
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             VZV
         </button>`,
@@ -119,7 +119,7 @@ const questionList = {
     },
     HLA_B27 :
     {
-        question: `Suspected diagnosis: <button type="button" class="btn btn-primary"
+        question: `Suspected diagnosis: <button type="button" class="btn btn-secondary"
         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
             HLA-B27/spondyloarthritis related AU
         </button>\
