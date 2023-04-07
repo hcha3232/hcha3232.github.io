@@ -1,4 +1,6 @@
-let answers = [];
+let answers = [
+    //[asked_question, asked_answer]
+];
 
 const questionList = {
     anatomicLocation :
@@ -146,6 +148,10 @@ const questionList = {
 function questionBoxes(currentQuestion,back){
     if(answers.length!=0 && back==true){
         answers.pop();
+        pastquestions();      
+    }
+    if(answers.length!=0 && back==false){
+        pastquestions();
     }
 
     let box = document.createElement('div');
@@ -208,7 +214,7 @@ function questionBoxes(currentQuestion,back){
 
         //once submited, the original question is deleted
         //this may be access by list being pushed
-        answers.push(currentQuestion);
+        answers.push([currentQuestion,questionList[currentQuestion].question,selectedOption]);
         document.getElementById("container").innerHTML = "";
         questionBoxes(nextQuestion, back=false);
     })
@@ -222,7 +228,7 @@ function questionBoxes(currentQuestion,back){
         }
         
         document.getElementById("container").innerHTML = "";
-        questionBoxes(answers[answers.length-1], back=true)
+        questionBoxes(answers[answers.length-1][0], back=true)
     })
 }
 
@@ -230,3 +236,11 @@ questionBoxes("anatomicLocation");
 
 
 
+function pastquestions(){
+    let pq = ``;
+    for(let i = 0; i < answers.length; i++){
+        pq += `<div>${answers[i][1]} <br>&nbsp&nbsp<i>${answers[i][2]}</i></div>`
+    }
+    let exp = document.getElementById("exp-container");
+    exp.innerHTML = pq;
+}
