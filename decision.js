@@ -153,7 +153,8 @@ const questionList = {
             HLA-B27/spondyloarthritis related AU
         </button>\
         <br>\
-        <span style='font-weight:400'>We recommend DUET algorithm</span>`,
+        <span style='font-weight:400'>We recommend DUET algorithm</span>
+        <img src="/img/duet.png" class="img-fluid"></img>`,
         options: [
         ]
     },
