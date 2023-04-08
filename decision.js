@@ -5,6 +5,7 @@ let answers = [
 const questionList = {
     anatomicLocation :
     {
+        description: ``,
         question: "What is the anatomic location of the uveitis?",
         options: [
             { label: "Anterior uveitis (only available)", nextQuestion: "course" },
@@ -14,7 +15,8 @@ const questionList = {
         ],
     },
     course :
-    {
+    {   
+        description: ``,
         question: "What is the course of the uveitis?",
         options: [
             { label: "Acute, monophasic", nextQuestion: "laterality_m"},
@@ -24,6 +26,7 @@ const questionList = {
     },
     laterality_m :
     {
+        description: ``,
         question: "What is the laterality of the uveitis?",
         options: [
             { label: "Unilateral", nextQuestion: "kp"},
@@ -32,6 +35,7 @@ const questionList = {
     },
     acute_bilateral_AU_algorithm :
     {
+        description: ``,
         question: `Next step: <span style='font-weight:400'>Acute bilateral uveitis algorithm</span>\
         <br>\
         Differential diagnosis: \
@@ -45,6 +49,7 @@ const questionList = {
     },
     laterality_r :
     {
+        description: ``,
         question: "What is the laterality of the uveitis?",
         options: [
             { label: "Unilateral", nextQuestion: "kp"},
@@ -54,6 +59,7 @@ const questionList = {
     },
     kp :
     {
+        description: ``,
         question: "What is the KP of the uveitis?",
         options: [
             { label: "Stellate", nextQuestion: "fus_algorithm"},
@@ -63,6 +69,7 @@ const questionList = {
     },
     screenViralAU :
     {
+        description: ``,
         question: "Increased IOP in the absence of prior steroid treatment or iris atrophy/transillumination?",
         options: [
             { label: "Yes", nextQuestion: "viralAU_algorithm"},
@@ -71,31 +78,118 @@ const questionList = {
     },
     fus_algorithm :
     {
-        question: `Next step: <span style='font-weight:400'>FUS algorithm</span>\
-        <br>\
-        Differential diagnosis:
+        description: `
+        <span style='font-weight:500'>Next step:</span> Rule out CMV AU<br>
+        <span style='font-weight:500'>Differential diagnosis: </span>
         ${buttonModal('FUS','Fuchs Uveitis Syndrom',disDatabase('fus'),'fus')}
-        ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}`,
+        ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
+        `,
+        question: `Does patient endotheliitis or nodular, coin-shaped endothelial lesions?`,
         options: [
+            { label: "Yes", nextQuestion: "CMV"},
+            { label: "No", nextQuestion: "FUS"}
         ]
+    },
+    CMV : {
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
+        ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
+        `,
+        question: ``,
+        options: []
+    },
+    FUS : {
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
+        ${buttonModal('FUS','Fuchs Uveitis Syndrom',disDatabase('fus'),'fus')}
+        `,
+        question: ``,
+        options: []
     },
     viralAU_algorithm :
     {
-        question: `Next step: <span style='font-weight:400'>Viral AU algorithm</span>\
-        <br>\
-        Differential diagnosis: 
+        description: `
+        <span style='font-weight:500'>Next step:</span> Viral AU algorithm <br>
+        <span style='font-weight:500'>Differential diagnosis: </span>
         ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
         ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
-        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}`,
+        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}
+        `,
+        question: `Continue?`,
         options: [
+            { label: "Yes", nextQuestion: "VIAUQ1"},
+            { label: "No", nextQuestion: "finish"}
         ]
+    },
+    VIAUQ1 : {
+        description: `Ophthalmic examination`,
+        question: `Does the patient have dendritic keratitis?`,
+        options: [
+            { label: "Yes", nextQuestion: "HSV"},
+            { label: "No", nextQuestion: "VIAUQ2"}
+        ]
+    },
+    HSV : {
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
+        ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
+        `,
+        question: ``,
+        options: []
+    },
+    VIAUQ2 : {
+        description: `Ophthalmic examination`,
+        question: `Does the patient have concurrent or recent dermatomal Herpes Zoster?`,
+        options: [
+            { label: "Yes", nextQuestion: "VZV"},
+            { label: "No", nextQuestion: "VIAUQ3"}
+        ]
+    },
+    VZV : {
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
+        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}
+        `,
+        question: ``,
+        options: []
+    },
+    VIAUQ3 : {
+        description: ``,
+        question: `Which clinical feature is most similar to the patient's presentation`,
+        options: [
+            { label: "Hypertensive anterior uveitis with granulomatous KPs", nextQuestion: "HSVORVZV"},
+            { label: "PSS-like anterior uveitis", nextQuestion: "PSSLIKE"},
+        ]
+    },
+    HSVORVZV : {
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
+        ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
+        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}
+        `,
+        question: `Which clinical feature is most similar to the patient's presentation`,
+        options: [
+            { label: "Sectoral iris atrophy in a patient < 50 years of age", nextQuestion: "HSV"},
+            { label: "Sectoral iris atrophy in a patient > 60 years of age", nextQuestion: "VZV"},
+            { label: "None", nextQuestion: "In_progress"}
+        ]
+    },
+    PSSLIKE : {
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
+        ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
+        `,
+        question: ``,
+        options: []
     },
     HLA_B27 :
     {
-        question: `Suspected diagnosis: 
+        question: ``,
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
         ${buttonModal('HLA-B27 SpA AU','HLA-B27 Spondyloarthritis Anterior Uveitis',disDatabase('hlab27'),'hlab27')}
         <br>
-        <span style='font-weight:400'>We recommend DUET algorithm</span>
+        <span style='font-weight:400'>We recommend following DUET algorithm</span>
         <br><br>
         <img src="/img/duet.png" class="img-fluid"></img>`,
         options: [
@@ -103,6 +197,7 @@ const questionList = {
     },
     laterality_c :
     {
+        description: ``,
         question: "What is the laterality of the uveitis?",
         options: [
             { label: "History of Alternating", nextQuestion: "HLA_B27"},
@@ -112,6 +207,7 @@ const questionList = {
     },
     RO_JIA_Age :
     {
+        description: ``,
         question: "Is patient's age < 16?",
         options: [
             { label: "Yes", nextQuestion: "JIA"},
@@ -120,6 +216,7 @@ const questionList = {
     },
     JIA :
     {
+        description: ``,
         question: `Suspected diagnosis: 
         ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
         `,
@@ -128,6 +225,7 @@ const questionList = {
     },
     RO_FUS : 
     {
+        description: ``,
         question: `Next step: <span style='font-weight:400'>Rule Out FUS algorithm</span>\
         <br>\
         Differential diagnosis: 
@@ -140,7 +238,15 @@ const questionList = {
     },
     In_progress :
     {
+        description: ``,
         question: "In progress",
+        options: [
+        ]
+    },
+    finish :
+    {
+        description: ``,
+        question: "Thank you",
         options: [
         ]
     }
@@ -162,6 +268,10 @@ function questionBoxes(currentQuestion,back){
     let optionsBox = document.createElement('div');
     optionsBox.id = `options-${currentQuestion}`;
     
+    let descriptionBox = document.createElement('div');
+    descriptionBox.id = `description-${currentQuestion}`
+    descriptionBox.innerHTML = questionList[currentQuestion].description;
+
     questionBox.innerHTML = `<h6>${questionList[currentQuestion].question}</h6>`;
 
     //options
@@ -179,6 +289,7 @@ function questionBoxes(currentQuestion,back){
     }
 
     //append question and options
+    box.appendChild(descriptionBox);
     box.appendChild(questionBox);
     box.appendChild(optionsBox);
 
