@@ -106,8 +106,36 @@ const questionList = {
         question: "What is the laterality of the uveitis?",
         options: [
             { label: "History of Alternating", nextQuestion: "HLA_B27"},
-            { label: "Unilateral", nextQuestion: "In_progress"},
+            { label: "Unilateral", nextQuestion: "RO_JIA_Age"},
             { label: "Bilateral", nextQuestion: "In_progress" }
+        ]
+    },
+    RO_JIA_Age :
+    {
+        question: "Is patient's age < 16?",
+        options: [
+            { label: "Yes", nextQuestion: "JIA"},
+            { label: "No", nextQuestion: "RO_FUS"},
+        ]
+    },
+    JIA :
+    {
+        question: `Suspected diagnosis: 
+        ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
+        `,
+        options: [
+        ]
+    },
+    RO_FUS : 
+    {
+        question: `Next step: <span style='font-weight:400'>Rule Out FUS algorithm</span>\
+        <br>\
+        Differential diagnosis: 
+        ${buttonModal('FUS','Fuchs Uveitis Syndrome',disDatabase('fus'),'fus')}
+        ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
+        ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
+        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}`,
+        options: [
         ]
     },
     In_progress :
