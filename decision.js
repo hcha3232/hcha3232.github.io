@@ -292,7 +292,7 @@ function disDatabase(dis){
         hlab27 : `
             <img src="/img/SUN-HLAB27.png" class="img-fluid container-gap"></img>
             <img src="/img/SUN-ASAS.png" class="img-fluid container-gap"></img>
-            img src="/img/SUN-ASAS2.png" class="img-fluid container-gap"></img>
+            <img src="/img/SUN-ASAS2.png" class="img-fluid container-gap"></img>
         `,
         tinu : `
         <img src="/img/SUN-TINU.png" class="img-fluid container-gap"></img>
