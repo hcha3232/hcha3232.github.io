@@ -154,17 +154,32 @@ function questionBoxes(currentQuestion,back){
     box.appendChild(questionBox);
     box.appendChild(optionsBox);
 
-    //Create button
-    box.innerHTML += `
-    <div style="margin-bottom:10px"></div>
-    <button type='button' class='btn btn-primary' id='back-${currentQuestion}'>
-        Back
-    </button>
-    <button type='button' class='btn btn-primary' id='submit-${currentQuestion}'>
-        Next
-    </button>
-    <div id='message-${currentQuestion}' style="color:red;"></div>
-    `;
+    //Create button Back and Next [Finish if no option left]
+    if(questionList[currentQuestion].options.length==0){
+        box.innerHTML += `
+        <div style="margin-bottom:10px"></div>
+        <button type='button' class='btn btn-primary' id='back-${currentQuestion}'>
+            Back
+        </button>
+        <button type='button' class='btn btn-primary' id='submit-${currentQuestion}'>
+            Finish
+        </button>
+        <div id='message-${currentQuestion}' style="color:red;"></div>
+        `;
+    }
+    else {
+        box.innerHTML += `
+        <div style="margin-bottom:10px"></div>
+        <button type='button' class='btn btn-primary' id='back-${currentQuestion}'>
+            Back
+        </button>
+        <button type='button' class='btn btn-primary' id='submit-${currentQuestion}'>
+            Next
+        </button>
+        <div id='message-${currentQuestion}' style="color:red;"></div>
+        `;
+    }
+    
 
     //append everything into container
     document.getElementById("container").appendChild(box);
@@ -174,20 +189,28 @@ function questionBoxes(currentQuestion,back){
     submitBtn.addEventListener("click",function(){
         let selected = document.querySelector('input[name="flexRadioDefault"]:checked');
 
-        if (selected === null) {
+        //if the question reaches last => go to index, if the question has no answer, ask for a click
+        if (selected === null && questionList[currentQuestion].options.length!=0) {
             document.getElementById(`message-${currentQuestion}`).innerHTML = "please select an option";
             return;
         }
-
+        if (selected === null && questionList[currentQuestion].options.length==0){
+            window.location.href = '/index.html'
+            return;
+        }
+        //if the question is clicked propertly, next question is retrieved
         let selectedOption = selected.value;
-
-        console.log("Selected option: " + selectedOption);
         let nextQuestion = questionList[currentQuestion].options.find(option => option.label === selectedOption).nextQuestion;
+        
+        //Debugging
+        console.log("Selected option: " + selectedOption);
         console.log("Next question: " + nextQuestion);
 
         //once submited, the original question is deleted
-        //this may be access by list being pushed
+        //this is accessed by list of past answers being pushed in "answers"
         answers.push([currentQuestion,questionList[currentQuestion].question,selectedOption]);
+        
+        //Old question being deleted and getting new question box
         document.getElementById("container").innerHTML = "";
         questionBoxes(nextQuestion, back=false);
     })
