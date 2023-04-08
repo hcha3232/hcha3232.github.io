@@ -3,7 +3,7 @@ let nav = document.getElementById("nav");
 nav.innerHTML = `
 
 <div class="container-fluid">
-<a class="navbar-brand" href="/index.html">Uveitis Diagnostic Tree</a>
+<a class="navbar-brand" href="/">Uveitis Diagnostic Tree</a>
 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -15,7 +15,7 @@ nav.innerHTML = `
   <div class="offcanvas-body">
     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Not Yet Developed</a>

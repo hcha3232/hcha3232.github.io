@@ -223,7 +223,7 @@ function questionBoxes(currentQuestion,back){
             return;
         }
         if (selected === null && questionList[currentQuestion].options.length==0){
-            window.location.href = '/index.html'
+            window.location.href = '/'
             return;
         }
         //if the question is clicked propertly, next question is retrieved
