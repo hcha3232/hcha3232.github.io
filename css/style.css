@@ -6,3 +6,14 @@ body {
     margin-bottom: 20px; /* adjust this value to increase or decrease the gap */
 }
 
+.no-padding {
+    padding: 0;
+}
+
+ol {
+    padding: 0;
+}
+
+li {
+    padding: 0;
+}
