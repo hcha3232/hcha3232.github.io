@@ -36,9 +36,9 @@ const questionList = {
         <br>\
         Differential diagnosis: \
         ${buttonModal('Sarcoidosis AU','Sarcoidosis Anterior Uveitis',null,'sarc')}
-        ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',null,'jia')}
+        ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
         ${buttonModal('Drug-induced AU','Drug-induced Anterior Uveitis',null,'drug')}
-        ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',null,'tinu')}
+        ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}
         `,
         options: [
         ]
@@ -74,8 +74,8 @@ const questionList = {
         question: `Next step: <span style='font-weight:400'>FUS algorithm</span>\
         <br>\
         Differential diagnosis:
-        ${buttonModal('FUS','Fuchs Uveitis Syndrom',null,'fus')}
-        ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',null,'cmv')}`,
+        ${buttonModal('FUS','Fuchs Uveitis Syndrom',disDatabase('fus'),'fus')}
+        ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}`,
         options: [
         ]
     },
@@ -84,16 +84,16 @@ const questionList = {
         question: `Next step: <span style='font-weight:400'>Viral AU algorithm</span>\
         <br>\
         Differential diagnosis: 
-        ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',null,'cmv')}
+        ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
         ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
-        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',null,'vzv')}`,
+        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}`,
         options: [
         ]
     },
     HLA_B27 :
     {
         question: `Suspected diagnosis: 
-        ${buttonModal('HLA-B27 SpA AU','HLA-B27 Spondyloarthritis Anterior Uveitis',null,'hlab27')}
+        ${buttonModal('HLA-B27 SpA AU','HLA-B27 Spondyloarthritis Anterior Uveitis',disDatabase('hlab27'),'hlab27')}
         <br>
         <span style='font-weight:400'>We recommend DUET algorithm</span>
         <br><br>
@@ -273,47 +273,30 @@ function buttonModal(btnName,headerName,disName_database,disId){
 
 function disDatabase(dis){
     database = {
+        cmv : `
+        <img src="/img/SUN-CMV.png" class="img-fluid container-gap"></img>
+        `,
         hsv : `
-        <div class="container" id="main-article">
-            <div>SUN Classification Criteria</div>
-            <div class="main-table">
-                <div style="font-weight: 400">Should satisfy #1 AND #2 AND #3</div>
-                <br>
-                <ol class="no-padding">
-                    <li>Evidence of anterior uveitis
-                        <ol type="a" style="font-weight:400;" class="no-padding">
-                            <li>Anterior chamber cells</li>
-                            <li>If anterior vitreous cells are present, severity is less than anterior chamber inflammation</li>
-                            <li>No evidence of retinitis</li>
-                        </ol>
-                    </li>
-                    <br>
-                    <li>Unilateral uveitis (unless there is a positive aqueous PCR for herpes simplex virus)
-                    </li>
-                    <br>
-                    <li>Evidence of herpes simplex infection in the eye
-                        <ol type="a" style="font-weight:400;" class="no-padding">
-                            <li>Aqueous humor PCR positive for herpes simplex virus OR</li>
-                            <li>Sectoral iris atrophy in a patient ≤50 years of age OR</li>
-                            <li>Herpes simplex keratitis</li>
-                        </ol>
-                    </li>
-                </ol>
-                <br>
-                <div class="exclusion-box" id="exclusion-box">
-                    <div class="exclusion-title">
-                        <div style="font-weight:700">Exclude if any criterion below is fulfilled</div>
-                    </div>
-                    <br>
-                    <ul style="font-weight:400;" class="no-padding">
-                        <li>Concomitant dermatomal/cutaneous varicella zoster virus (unless aqueous specimen PCR positive for herpes simplex virus)</li>
-                        <li>Positive serology for syphilis using a treponemal test</li>
-                        <li>Evidence of sarcoidosis (either bilateral hilar adenopathy on chest imaging or tissue biopsy demonstrating non-caseating granulomata)</li>
-                        <li>Aqeous specimen PCR positive for cytomegalovirus or varicella zoster virus</li>
-                    </ul>
-                </div>
-            </div>
-        </div>`
+        <img src="/img/SUN-HSV.png" class="img-fluid container-gap"></img>
+        `,
+        vzv : `
+        <img src="/img/SUN-VZV.png" class="img-fluid container-gap"></img>
+        `,
+        fus : `
+        <img src="/img/SUN-FUS.png" class="img-fluid container-gap"></img>
+        `,
+        jia : `
+        <img src="/img/SUN-JIA.png" class="img-fluid container-gap"></img>
+        <img src="/img/SUN-JIA-Category.png" class="img-fluid container-gap"></img>
+        `,
+        hlab27 : `
+            <img src="/img/SUN-HLAB27.png" class="img-fluid container-gap"></img>
+            <img src="/img/SUN-ASAS.png" class="img-fluid container-gap"></img>
+            img src="/img/SUN-ASAS2.png" class="img-fluid container-gap"></img>
+        `,
+        tinu : `
+        <img src="/img/SUN-TINU.png" class="img-fluid container-gap"></img>
+        `
     }
     return database[dis]
 }
