@@ -35,22 +35,10 @@ const questionList = {
         question: `Next step: <span style='font-weight:400'>Acute bilateral uveitis algorithm</span>\
         <br>\
         Differential diagnosis: \
-        <button type="button" class="btn btn-secondary"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            Sarcoidosis
-        </button>
-        <button type="button" class="btn btn-secondary"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            JIA
-        </button>
-        <button type="button" class="btn btn-secondary"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            Drug-induced
-        </button>
-        <button type="button" class="btn btn-secondary"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            TINU
-        </button>
+        ${buttonModal('Sarcoidosis AU','Sarcoidosis Anterior Uveitis',null,'sarc')}
+        ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',null,'jia')}
+        ${buttonModal('Drug-induced AU','Drug-induced Anterior Uveitis',null,'drug')}
+        ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',null,'tinu')}
         `,
         options: [
         ]
@@ -75,7 +63,7 @@ const questionList = {
     },
     screenViralAU :
     {
-        question: "Increased IOP or iris atrophy/transillumination?",
+        question: "Increased IOP in the absence of prior steroid treatment or iris atrophy/transillumination?",
         options: [
             { label: "Yes", nextQuestion: "viralAU_algorithm"},
             { label: "No", nextQuestion: "HLA_B27"},
@@ -86,43 +74,8 @@ const questionList = {
         question: `Next step: <span style='font-weight:400'>FUS algorithm</span>\
         <br>\
         Differential diagnosis:
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            FUS
-        </button>
-
-        <div class="modal" id="myModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content" id="myInput">
-                <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Fuchs Uveitis Syndrome</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                Example<br>
-                Disease Entity
-                Fuchs’ Heterochromic Iridocyclitis (FHI), also known as Fuchs’ uveitis syndrome (FUS), was first described in 1906 by Austrian ophthalmologist, Ernst Fuchs, who reported a series of 38 patients with iris heterochromia, cyclitis, and cataract.[1] Since then, FHI has been further characterized as a constellation of clinical findings, which classically includes low-grade unilateral anterior inflammation with stellate keratic precipitates (KP), iris heterochromia, and prominent iris and angle vessels that bleed after paracentesis (Amsler sign).[2]
-                
-                Etiology
-                Ernst Fuchs presumed that FHI was caused by a noxious stimulus of unknown origin.[1]  The exact etiology of FHI is still unknown, and the disease process is likely multifactorial. Historical theories on the cause of FHI have associated it with sympathetic dysfunction, as well as multiple infectious etiologies such as toxoplasma, herpes simplex virus (HSV)[3] , chikungunya virus[4], cytomegalovirus (CMV), and rubella virus (RV).
-                
-                Sympathetic dysfunction resulting in decreased innervation to stromal melanocytes and iris hypopigmentation was an early proposed theory for the etiology of FHI.[5] [6] [7] The abnormal innervation was thought to account for not only the iris heterochromia, but also the breakdown of the blood-aqueous barrier and subsequent inflammation. However, this theory was dismissed after only 25 of 1746 (1.4%) FHI cases in a retrospective study were found to be associated with Horner’s syndrome.[8] The prevalence of peripheral chorioretinal scars in FHI varies from 7-65% of cases, with most studies noting a prevalence of 10%.[7] Multiple studies have reported toxoplasma-like chorioretinal scars in a significantly higher proportion of FHI patients compared to control groups.[9][10] For this reason, an etiologic association between toxoplasmosis and FHI has been investigated, however, no significant association between FHI and humoral or cellular immunity to toxoplasma has been found.[7]
-                
-                Both HSV and Chikungunya virus have been linked to FHI due to the isolation of viral DNA and RNA, respectively, from the aqueous humor of patients with FHI. Currently, however, these findings are limited only to case reports.[11][12]
-                
-                The strongest etiologic theories are those associating CMV and RV with FHI. CMV infection has been found to account for 16-42% of FHI in Asia, whereas in Western countries, FHI is predominantly associated with RV.[13][12][14][11] In one Chinese study, aqueous humor samples were obtained from 35 patients with presumed FHI, 15 of which were found to contain CMV DNA by PCR.[13] Aqueous humor and blood of 63 European patients with FHI were examined for RV antibodies in one of the largest series of FHI patients, all of whom were found to have intraocular antibody synthesis against RV.[15]
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-        </div>
-
-        <button type="button" class="btn btn-secondary"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            CMV
-        </button>`,
+        ${buttonModal('FUS','Fuchs Uveitis Syndrom',null,'fus')}
+        ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',null,'cmv')}`,
         options: [
         ]
     },
@@ -131,28 +84,17 @@ const questionList = {
         question: `Next step: <span style='font-weight:400'>Viral AU algorithm</span>\
         <br>\
         Differential diagnosis: 
-        <button type="button" class="btn btn-secondary"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            CMV
-        </button>
-        <button type="button" class="btn btn-secondary"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            HSV
-        </button>
-        <button type="button" class="btn btn-secondary"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            VZV
-        </button>`,
+        ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',null,'cmv')}
+        ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',null,'hsv')}
+        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',null,'vzv')}`,
         options: [
         ]
     },
     HLA_B27 :
     {
-        question: `Suspected diagnosis: <button type="button" class="btn btn-secondary"
-        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-            HLA-B27/spondyloarthritis related AU
-        </button>\
-        <br>\
+        question: `Suspected diagnosis: 
+        ${buttonModal('HLA-B27 SpA AU','HLA-B27 Spondyloarthritis Anterior Uveitis',null,'hlab27')}
+        <br>
         <span style='font-weight:400'>We recommend DUET algorithm</span>
         <br><br>
         <img src="/img/duet.png" class="img-fluid"></img>`,
@@ -268,6 +210,7 @@ questionBoxes("anatomicLocation");
 
 
 function pastquestions(){
+    //retrieve entire pastquestions and display
     let pq = ``;
     for(let i = 0; i < answers.length; i++){
         pq += `<div>${answers[i][1]} <br>&nbsp&nbsp<i>${answers[i][2]}</i></div>`
@@ -275,3 +218,33 @@ function pastquestions(){
     let exp = document.getElementById("exp-container");
     exp.innerHTML = pq;
 }
+
+
+function buttonModal(btnName,headerName,disName_database,disId){
+    let btnModalHTML = 
+    `
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#${disId}"
+        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+            ${btnName}
+    </button>
+
+    <div class="modal" id="${disId}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">${headerName}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ${disName_database}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+    return btnModalHTML;
+}
+
