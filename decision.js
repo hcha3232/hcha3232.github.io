@@ -29,8 +29,17 @@ const questionList = {
         description: ``,
         question: "What is the laterality of the uveitis?",
         options: [
-            { label: "Unilateral", nextQuestion: "kp"},
+            { label: "Unilateral", nextQuestion: "heterochromia"},
             { label: "Bilateral", nextQuestion: "acute_bilateral_AU_algorithm" }
+        ]
+    },
+    heterochromia : 
+    {
+        description: `Ophthalmic examination`,
+        question: "Does the patient have heterochromia?",
+        options: [
+            { label: "Yes", nextQuestion: "fus_algorithm"},
+            { label: "No", nextQuestion: "kp" }
         ]
     },
     acute_bilateral_AU_algorithm :
@@ -52,7 +61,7 @@ const questionList = {
         description: ``,
         question: "What is the laterality of the uveitis?",
         options: [
-            { label: "Unilateral", nextQuestion: "kp"},
+            { label: "Unilateral", nextQuestion: "heterochromia"},
             { label: "Unilateral, alternating", nextQuestion: "HLA_B27"},
             { label: "Bilateral", nextQuestion: "acute_bilateral_AU_algorithm" }
         ]
@@ -69,7 +78,7 @@ const questionList = {
     },
     screenViralAU :
     {
-        description: ``,
+        description: `Ophthalmic examination`,
         question: "Increased IOP in the absence of prior steroid treatment or iris atrophy/transillumination?",
         options: [
             { label: "Yes", nextQuestion: "viralAU_algorithm"},
@@ -79,12 +88,12 @@ const questionList = {
     fus_algorithm :
     {
         description: `
-        <span style='font-weight:500'>Next step:</span> Rule out CMV AU<br>
+        <span style='font-weight:500'>Next step:</span> FUS-like AU algorithm<br>
         <span style='font-weight:500'>Differential diagnosis: </span>
         ${buttonModal('FUS','Fuchs Uveitis Syndrom',disDatabase('fus'),'fus')}
         ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
         `,
-        question: `Does patient endotheliitis or nodular, coin-shaped endothelial lesions?`,
+        question: `Does the patient have endotheliitis or nodular, coin-shaped endothelial lesions?`,
         options: [
             { label: "Yes", nextQuestion: "CMV"},
             { label: "No", nextQuestion: "FUS"}
@@ -179,8 +188,11 @@ const questionList = {
         <span style='font-weight:500'>Suspected diagnosis:</span>
         ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
         `,
-        question: ``,
-        options: []
+        question: `Does the patient have endotheliitis or nodular, coin-shaped endothelial lesions?`,
+        options: [
+            { label: "Yes", nextQuestion: "CMV"},
+            { label: "No", nextQuestion: "UAU"}
+        ]
     },
     HLA_B27 :
     {
@@ -216,9 +228,11 @@ const questionList = {
     },
     JIA :
     {
-        description: ``,
-        question: `Suspected diagnosis: 
+        description: `
+        Suspected diagnosis: 
         ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
+        `,
+        question: `
         `,
         options: [
         ]
@@ -247,6 +261,14 @@ const questionList = {
     {
         description: ``,
         question: "Thank you",
+        options: [
+        ]
+    },
+    UAU :
+    {
+        description: `50% of the patients with uveitis have undifferentiated uveitis`,
+        question: `
+        `,
         options: [
         ]
     }
