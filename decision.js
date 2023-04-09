@@ -44,16 +44,35 @@ const questionList = {
     },
     acute_bilateral_AU_algorithm :
     {
-        description: ``,
-        question: `Next step: <span style='font-weight:400'>Acute bilateral uveitis algorithm</span>\
-        <br>\
-        Differential diagnosis: \
+        description: `
+        <span style='font-weight:500'>Next step:</span> Acute bilateral uveitis algorithm<br>
+        <span style='font-weight:500'>Differential diagnosis: </span>
         ${buttonModal('Sarcoidosis AU','Sarcoidosis Anterior Uveitis',null,'sarc')}
-        ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
         ${buttonModal('Drug-induced AU','Drug-induced Anterior Uveitis',null,'drug')}
         ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}
         `,
+        question: `Continue?`,
         options: [
+            { label: "Yes", nextQuestion: "ABAUQ1"},
+            { label: "No", nextQuestion: "finish"}
+        ]
+    },
+    ABAUQ1 : 
+    {
+        description: `Ophthalmic examination`,
+        question: "(under development) Does the patient have granulomatous KPs?",
+        options: [
+            { label: "Yes", nextQuestion: "sarcoidosis"},
+            { label: "No", nextQuestion: "ABAUQ2" }
+        ]
+    },
+    ABAUQ2 : 
+    {
+        description: `Ophthalmic examination`,
+        question: "(under development) Does the patient have systemic symptoms? (anorexia, fever, weight loss, fatigue, and polyuria)",
+        options: [
+            { label: "Yes", nextQuestion: "TINU"},
+            { label: "No", nextQuestion: "UAU" }
         ]
     },
     laterality_r :
@@ -213,17 +232,66 @@ const questionList = {
         question: "What is the laterality of the uveitis?",
         options: [
             { label: "History of Alternating", nextQuestion: "HLA_B27"},
-            { label: "Unilateral", nextQuestion: "RO_JIA_Age"},
-            { label: "Bilateral", nextQuestion: "In_progress" }
+            { label: "Unilateral", nextQuestion: "RO_children"},
+            { label: "Bilateral", nextQuestion: "RO_chronic_granulomatous_AU" }
         ]
     },
-    RO_JIA_Age :
+    RO_chronic_granulomatous_AU : {
+        description: ``,
+        question: "Does it have granulomatous KPs?",
+        options: [
+            { label: "Yes", nextQuestion: "RO_sarcoidosis_after_chronic_bilaterl"},
+            { label: "No", nextQuestion: "CCBAU"},
+        ]
+    },
+    RO_sarcoidosis_after_chronic_bilaterl : 
+    {
+        description: ``,
+        question: "(under development) Does the patient have sarcoidosis?",
+        options: [
+            { label: "Yes", nextQuestion: "sarcoidosis"},
+            { label: "No", nextQuestion: "viralAU_algorithm"},
+        ]
+    },
+    sarcoidosis :
+    {
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
+        ${buttonModal('Sarcoidosis AU','Sarcoidosis Anterior Uveitis',null,'sarc')}
+        `,
+        question: ``,
+        options: []
+    },
+    RO_children :
     {
         description: ``,
         question: "Is patient's age < 16?",
         options: [
+            //CCBAU => childrean chronic bilateral anterior uveitis
+            { label: "Yes", nextQuestion: "CCBAU"},
+            { label: "No", nextQuestion: "heterochromia_c"},
+        ]
+    },
+    CCBAU : {
+        description: `
+        <span style='font-weight:500'>Next step:</span> Chronic anterior uveitis in young age algorithm <br>
+        <span style='font-weight:500'>Differential diagnosis: </span>
+        ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
+        ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}
+        `,
+        question: `Continue?`,
+        options: [
+            { label: "Yes", nextQuestion: "RO_JIA"},
+            { label: "No", nextQuestion: "finish"}
+        ]
+    },
+    RO_JIA: {
+        description: ``,
+        question: "(under development) Does the patient have diagnosed oligoarhtritis or RF-negative polyarthritis or juvenile psoriatic arthritis?",
+        options: [
+            //CCBAU => childrean chronic bilateral anterior uveitis
             { label: "Yes", nextQuestion: "JIA"},
-            { label: "No", nextQuestion: "RO_FUS"},
+            { label: "No", nextQuestion: "RO_TINU"},
         ]
     },
     JIA :
@@ -237,17 +305,44 @@ const questionList = {
         options: [
         ]
     },
-    RO_FUS : 
+    RO_TINU :
     {
         description: ``,
-        question: `Next step: <span style='font-weight:400'>Rule Out FUS algorithm</span>\
-        <br>\
-        Differential diagnosis: 
-        ${buttonModal('FUS','Fuchs Uveitis Syndrome',disDatabase('fus'),'fus')}
-        ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
-        ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
-        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}`,
+        question: "(under development) Does the patient have systemic symptoms? (anorexia, fever, weight loss, fatigue, and polyuria)",
         options: [
+            //CCBAU => childrean chronic bilateral anterior uveitis
+            { label: "Yes", nextQuestion: "TINU"},
+            { label: "No", nextQuestion: "UAU"},
+        ]
+    },
+    TINU :
+    {
+        description: `
+        Suspected diagnosis: 
+        ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}
+        `,
+        question: `
+        `,
+        options: [
+        ]
+    },
+    heterochromia_c : 
+    {
+        description: `Ophthalmic examination`,
+        question: "Does the patient have heterochromia?",
+        options: [
+            { label: "Yes", nextQuestion: "fus_algorithm"},
+            { label: "No", nextQuestion: "kp_c" }
+        ]
+    },
+    kp_c :
+    {
+        description: ``,
+        question: "What is the KP of the uveitis?",
+        options: [
+            { label: "Stellate", nextQuestion: "fus_algorithm"},
+            { label: "Granulomatous", nextQuestion: "viralAU_algorithm"},
+            { label: "Non-granulomatous", nextQuestion: "viralAU_algorithm" }
         ]
     },
     In_progress :
