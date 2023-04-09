@@ -508,7 +508,7 @@ function buttonModal(btnName,headerName,disName_database,disId){
     </button>
 
     <div class="modal" id="${disId}" tabindex="-1">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">${headerName}</h1>
