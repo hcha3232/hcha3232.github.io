@@ -361,7 +361,7 @@ const questionList = {
     },
     UAU :
     {
-        description: `50% of the patients with uveitis have undifferentiated uveitis`,
+        description: `50% of the patients with uveitis have <span style='font-weight:500'>undifferentiated uveitis</span>`,
         question: `
         `,
         options: [
