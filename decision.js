@@ -2,6 +2,8 @@ let answers = [
     //[asked_question, asked_answer]
 ];
 
+let DDx = [];
+
 const questionList = {
     anatomicLocation :
     {
@@ -53,7 +55,7 @@ const questionList = {
         description: `
         <span style='font-weight:500'>Next step:</span> Acute bilateral uveitis algorithm<br>
         <span style='font-weight:500'>Differential diagnosis: </span>
-        ${buttonModal('Sarcoidosis AU','Sarcoidosis Anterior Uveitis',null,'sarc')}
+        ${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
         ${buttonModal('Drug-induced AU','Drug-induced Anterior Uveitis',null,'drug')}
         ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}
         `,
@@ -61,6 +63,11 @@ const questionList = {
         options: [
             { label: "Yes", nextQuestion: "ABAUQ1"},
             { label: "No", nextQuestion: "finish"}
+        ],
+        ddx: [
+            `${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
+            ${buttonModal('Drug-induced AU','Drug-induced Anterior Uveitis',null,'drug')}
+            ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}`
         ]
     },
     ABAUQ1 : 
@@ -122,6 +129,10 @@ const questionList = {
         options: [
             { label: "Yes", nextQuestion: "CMV"},
             { label: "No", nextQuestion: "FUS"}
+        ],
+        ddx: [
+            `${buttonModal('FUS','Fuchs Uveitis Syndrom',disDatabase('fus'),'fus')}
+            ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}`
         ]
     },
     CMV : {
@@ -153,6 +164,11 @@ const questionList = {
         options: [
             { label: "Yes", nextQuestion: "VIAUQ1"},
             { label: "No", nextQuestion: "finish"}
+        ],
+        ddx: [
+            `${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
+            ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
+            ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}`
         ]
     },
     VIAUQ1 : {
@@ -205,7 +221,11 @@ const questionList = {
         options: [
             { label: "Sectoral iris atrophy in a patient < 50 years of age", nextQuestion: "HSV"},
             { label: "Sectoral iris atrophy in a patient > 60 years of age", nextQuestion: "VZV"},
-            { label: "None", nextQuestion: "In_progress"}
+            { label: "None", nextQuestion: "UAU"}
+        ],
+        ddx: [
+            `${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
+            ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}`
         ]
     },
     PSSLIKE : {
@@ -217,6 +237,9 @@ const questionList = {
         options: [
             { label: "Yes", nextQuestion: "CMV"},
             { label: "No", nextQuestion: "UAU"}
+        ],
+        ddx: [
+            `${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}`
         ]
     },
     HLA_B27 :
@@ -263,7 +286,7 @@ const questionList = {
     {
         description: `
         <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${buttonModal('Sarcoidosis AU','Sarcoidosis Anterior Uveitis',null,'sarc')}
+        ${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
         `,
         question: ``,
         options: []
@@ -280,7 +303,7 @@ const questionList = {
     },
     CCBAU : {
         description: `
-        <span style='font-weight:500'>Next step:</span> Chronic anterior uveitis in young age algorithm <br>
+        <span style='font-weight:500'>Next step:</span> Chronic anterior uveitis algorithm <br>
         <span style='font-weight:500'>Differential diagnosis: </span>
         ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
         ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}
@@ -289,6 +312,10 @@ const questionList = {
         options: [
             { label: "Yes", nextQuestion: "RO_JIA"},
             { label: "No", nextQuestion: "finish"}
+        ],
+        ddx: [
+            `${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
+            ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}`
         ]
     },
     RO_JIA: {
@@ -367,7 +394,8 @@ const questionList = {
     },
     UAU :
     {
-        description: `50% of the patients with uveitis have <span style='font-weight:500'>undifferentiated uveitis</span>`,
+        description: `Our app would like to remind you that approximately 50% of patients with uveitis are diagnosed with <span style='font-weight:500'>undifferentiated uveitis</span><br><br>
+        Please make a note that the last step in the differential diagnosis process that we checked was `,
         question: `
         `,
         options: [
@@ -382,6 +410,18 @@ function questionBoxes(currentQuestion,back){
     }
     if(answers.length!=0 && back==false){
         pastquestions();
+    }
+
+    if(currentQuestion == 'UAU'){
+        let lastDDx = DDx.pop().join(` `);
+        questionList[currentQuestion].description += lastDDx;
+        questionList[currentQuestion].description += `<br><br>Also, ${buttonModal('Syphilis','Syphilitic Uveitis',disDatabase('syphilis'),'syphilis')}
+        ${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
+        ${buttonModal('TB','Tubercular uveitis',disDatabase('tb'),'tb')} are recommend to be included in the workup.` 
+    }
+    if (questionList[currentQuestion].hasOwnProperty('ddx')) {
+        console.log('yeah!')
+        DDx.push(questionList[currentQuestion].ddx)
     }
 
     let box = document.createElement('div');
@@ -451,6 +491,8 @@ function questionBoxes(currentQuestion,back){
     submitBtn.addEventListener("click",function(){
         let selected = document.querySelector('input[name="flexRadioDefault"]:checked');
 
+
+        
         //if the question reaches last => go to index, if the question has no answer, ask for a click
         if (selected === null && questionList[currentQuestion].options.length!=0) {
             document.getElementById(`message-${currentQuestion}`).innerHTML = "please select an option";
@@ -558,6 +600,16 @@ function disDatabase(dis){
         `,
         tinu : `
         <img src="/img/SUN-TINU.png" class="img-fluid container-gap"></img>
+        `,
+        sarcoidosis : `
+        <img src="/img/SUN-SARCOIDOSIS.png" class="img-fluid container-gap"></img>
+        `,
+        tb : `
+            <img src="/img/SUN-TB.png" class="img-fluid container-gap"></img>
+        `,
+        syphilis : `
+        <img src="/img/SUN-SYPHILIS.png" class="img-fluid container-gap"></img>
+        <img src="/img/SUN-SYPHILIS-SCREENING.png" class="img-fluid container-gap"></img>
         `,
 
         //SUN table and images
