@@ -375,7 +375,7 @@ const questionList = {
         options: [
             { label: "Stellate", nextQuestion: "fus_algorithm"},
             { label: "Granulomatous", nextQuestion: "viralAU_algorithm"},
-            { label: "Non-granulomatous", nextQuestion: "viralAU_algorithm" }
+            { label: "Non-granulomatous", nextQuestion: "screenViralAU" }
         ]
     },
     In_progress :
