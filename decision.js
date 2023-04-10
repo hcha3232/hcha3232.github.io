@@ -394,8 +394,7 @@ const questionList = {
     },
     UAU :
     {
-        description: `Our app would like to remind you that approximately 50% of patients with uveitis are diagnosed with <span style='font-weight:500'>undifferentiated uveitis</span><br><br>
-        Please make a note that the last step in the differential diagnosis process that we checked was `,
+        description: ``,
         question: `
         `,
         options: [
@@ -413,8 +412,16 @@ function questionBoxes(currentQuestion,back){
     }
 
     if(currentQuestion == 'UAU'){
-        let lastDDx = DDx.pop().join(` `);
-        questionList[currentQuestion].description += lastDDx;
+        questionList[currentQuestion].description = `Our app would like to remind you that approximately 50% of patients with uveitis are diagnosed with <span style='font-weight:500'>undifferentiated uveitis</span><br><br>
+        Please make a note that the last step in the differential diagnosis process that we checked was `;
+        if(DDx.length!=0){
+            let lastDDx = DDx[DDx.length-1].join(` `);
+            questionList[currentQuestion].description += lastDDx;
+        }
+        else{
+            questionList[currentQuestion].description += `NULL`;
+        }
+        
         questionList[currentQuestion].description += `<br><br>Also, ${buttonModal('Syphilis','Syphilitic Uveitis',disDatabase('syphilis'),'syphilis')}
         ${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
         ${buttonModal('TB','Tubercular uveitis',disDatabase('tb'),'tb')} are recommend to be included in the workup.` 
