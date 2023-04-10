@@ -5,7 +5,10 @@ let answers = [
 const questionList = {
     anatomicLocation :
     {
-        description: ``,
+        description: `
+        <span style='font-weight:500'>Check SUN classification for </span> 
+        ${buttonModal('Anatomic Location of Uveitis','Anatomic Location of Uveitis',disDatabase('anatLoc'),'anatLoc')}
+        `,
         question: "What is the anatomic location of the uveitis?",
         options: [
             { label: "Anterior uveitis (only available)", nextQuestion: "course" },
@@ -16,7 +19,10 @@ const questionList = {
     },
     course :
     {   
-        description: ``,
+        description: `
+        <span style='font-weight:500'>Check SUN classification for </span> 
+        ${buttonModal('Course of Uveitis','Course of Uveitis',disDatabase('course'),'course')}
+        `,
         question: "What is the course of the uveitis?",
         options: [
             { label: "Acute, monophasic", nextQuestion: "laterality_m"},
@@ -552,6 +558,14 @@ function disDatabase(dis){
         `,
         tinu : `
         <img src="/img/SUN-TINU.png" class="img-fluid container-gap"></img>
+        `,
+
+        //SUN table and images
+        anatLoc : `
+        <img src="/img/SUN-ANATOMIC-LOCATION.png" class="img-fluid container-gap"></img>
+        `,
+        course : `
+        <img src="/img/SUN-COURSE.png" class="img-fluid container-gap"></img>
         `
     }
     return database[dis]
