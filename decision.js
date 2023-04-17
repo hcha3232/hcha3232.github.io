@@ -464,8 +464,9 @@ function questionBoxes(currentQuestion,back){
 
     if (questionList[currentQuestion].hasOwnProperty('footer')) {
         let footerBox = document.createElement('div');
+        footerBox.classList = "container-gap"
         footerBox.id = `footer-${currentQuestion}`
-        footerBox.innerHTML = '<br><br><span style="font-weight: 500">footnote: </span>'
+        footerBox.innerHTML = '<br><br><span style="font-weight: 500">Note: </span>'
         footerBox.innerHTML += questionList[currentQuestion].footer;
         box.appendChild(footerBox);
     }
