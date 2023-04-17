@@ -463,8 +463,7 @@ const questionList = {
     },
     In_progress :
     {
-        description: `Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
-        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        description: ``,
         question: "In progress",
         options: [
         ]
