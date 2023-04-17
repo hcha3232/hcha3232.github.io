@@ -558,19 +558,18 @@ function questionBoxes(currentQuestion,back){
     if(questionList[currentQuestion].hasOwnProperty('ddx')){
         let ddxBox = document.createElement('div');
         ddxBox.classList = "container-gap container-gap-top border border-4 p-2 lh-lg";
-        
         let mostlikely = questionList[currentQuestion].ddx.most_likely
         let possible = questionList[currentQuestion].ddx.possible
         let lesslikely = questionList[currentQuestion].ddx.less_likely
         ddxBox.innerHTML = `<span style="font-weight: 500">Differentials </span><br>`
-        ddxBox.innerHTML += 'Most likely diagnosis<br>'
+        ddxBox.innerHTML += '<span style="color:grey; font-size: 0.8rem;">Most likely diagnosis</span><br>'
         ddxBox.innerHTML += mostlikely
         if(mostlikely != ''){
             ddxBox.innerHTML += '<br>'
         }
-        ddxBox.innerHTML += 'Possible diagnosis<br>'
+        ddxBox.innerHTML += '<span style="color:grey; font-size: 0.8rem;">Possible diagnosis</span><br>'
         ddxBox.innerHTML += possible
-        ddxBox.innerHTML += '<br>Less likely diagnosis<br>'
+        ddxBox.innerHTML += '<span style="color:grey; font-size: 0.8rem;"><br>Less likely diagnosis</span><br>'
         ddxBox.innerHTML += lesslikely
         box.appendChild(ddxBox)
     }
