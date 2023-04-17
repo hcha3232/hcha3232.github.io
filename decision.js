@@ -75,7 +75,7 @@ const questionList = {
         options: [
             //CCBAU => childrean chronic bilateral anterior uveitis
             { label: "Yes", nextQuestion: "TINU"},
-            { label: "No", nextQuestion: "NOT_TINU"},
+            { label: "No", nextQuestion: "NOT_TINU_c"},
         ]
     },
     NOT_TINU_c:{
