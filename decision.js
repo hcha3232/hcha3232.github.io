@@ -8,8 +8,6 @@ const questionList = {
     anatomicLocation :
     {
         description: `
-        <span style='font-weight:500'>Check SUN classification for </span> 
-        ${buttonModal('Anatomic Location of Uveitis','Anatomic Location of Uveitis',disDatabase('anatLoc'),'anatLoc')}
         `,
         question: "What is the anatomic location of the uveitis?",
         options: [
@@ -18,112 +16,83 @@ const questionList = {
             { label: "Posterior uveitis", nextQuestion: "In_progress" },
             { label: "Panuveitis", nextQuestion: "In_progress" }
         ],
+        footer: `${buttonModal('Anatomic CLassification','Anatomic Classification',disDatabase('anatLoc'),'anatLoc')}`
     },
     course :
     {   
         description: `
-        <span style='font-weight:500'>Check SUN classification for </span> 
-        ${buttonModal('Course of Uveitis','Course of Uveitis',disDatabase('course'),'course')}
-        `,
+        Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
+        ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
         question: "What is the course of the uveitis?",
         options: [
             { label: "Acute, monophasic", nextQuestion: "laterality_m"},
             { label: "Acute, recurrent", nextQuestion: "laterality_r"},
             { label: "Chronic", nextQuestion: "laterality_c" }
         ],
+        ddx : [
+            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
+            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
+        ],
+
+        footer: `${buttonModal('Course','Course',disDatabase('course'),'course')}`
     },
-    laterality_m :
-    {
+    laterality_c : {
         description: ``,
         question: "What is the laterality of the uveitis?",
         options: [
-            { label: "Unilateral", nextQuestion: "heterochromia"},
-            { label: "Bilateral", nextQuestion: "acute_bilateral_AU_algorithm" }
+            { label: "Unilateral", nextQuestion: "chronic_ul_kp"},
+            { label: "Bilateral", nextQuestion: "chronic_bl_kp" },
+            //history of alternating anterior uveitis will be asked same questions as recurrent alternating
+            { label: "History of Alternating", nextQuestion: "acute_r_al_kp" }
         ]
     },
-    heterochromia : 
-    {
-        description: `Ophthalmic examination`,
-        question: "Does the patient have heterochromia?",
+    chronic_bl_kp : {
+        description: ``,
+        question: "What is the KPs of the uveitis?",
         options: [
-            { label: "Yes", nextQuestion: "fus_algorithm"},
-            { label: "No", nextQuestion: "kp" }
+            { label: "Granulomatous", nextQuestion: "acute_m_bl_g_ddx"},
+            //chronic granulomatous bilateral AU is just acute_m_bl_g_ddx
+            { label: "Non-granulomatous", nextQuestion: "chronic_bl_ng_ddx" },
         ]
     },
-    acute_bilateral_AU_algorithm :
-    {
+    chronic_bl_ng_ddx : {
         description: `
-        <span style='font-weight:500'>Next step:</span> Acute bilateral uveitis algorithm<br>
-        <span style='font-weight:500'>Differential diagnosis: </span>
-        ${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
-        ${buttonModal('Drug-induced AU','Drug-induced Anterior Uveitis',null,'drug')}
-        ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}
-        `,
-        question: `Continue?`,
+        Possible diagnosis: <br>${disButtonModal('jia')} ${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        question: "Is the patient's age < 16 with insidious onset and mostly asymptomatic/minimally symptomatic history?",
         options: [
-            { label: "Yes", nextQuestion: "ABAUQ1"},
-            { label: "No", nextQuestion: "finish"}
+            { label: "Yes", nextQuestion: "is_it_jia"},
+            { label: "No", nextQuestion: "chronic_bl_ng_not_jia"}
         ],
-        ddx: [
-            `${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
-            ${buttonModal('Drug-induced AU','Drug-induced Anterior Uveitis',null,'drug')}
-            ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}`
-        ]
+        ddx : [
+            `${disButtonModal('jia')}${disButtonModal('tinu')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
+        ]   
     },
-    ABAUQ1 : 
-    {
-        description: `Ophthalmic examination`,
-        question: "(under development) Does the patient have granulomatous KPs?",
-        options: [
-            { label: "Yes", nextQuestion: "sarcoidosis"},
-            { label: "No", nextQuestion: "ABAUQ2" }
-        ]
-    },
-    ABAUQ2 : 
-    {
-        description: `Ophthalmic examination`,
+    chronic_bl_ng_not_jia : {
+        description: ``,
         question: "(under development) Does the patient have systemic symptoms? (anorexia, fever, weight loss, fatigue, and polyuria)",
         options: [
+            //CCBAU => childrean chronic bilateral anterior uveitis
             { label: "Yes", nextQuestion: "TINU"},
-            { label: "No", nextQuestion: "UAU" }
+            { label: "No", nextQuestion: "finish"},
         ]
     },
-    laterality_r :
-    {
+    chronic_ul_kp: {
         description: ``,
-        question: "What is the laterality of the uveitis?",
+        question: "What is the KPs of the uveitis?",
         options: [
-            { label: "Unilateral", nextQuestion: "heterochromia"},
-            { label: "Unilateral, alternating", nextQuestion: "HLA_B27"},
-            { label: "Bilateral", nextQuestion: "acute_bilateral_AU_algorithm" }
+            { label: "Granulomatous", nextQuestion: "acute_m_ul_g_ddx"},
+            //chronic granulomatous unilateral AU is viral algorithm
+            { label: "Non-granulomatous", nextQuestion: "chronic_ul_ng_ddx" },
+            { label: "Stellate", nextQuestion: "fus_algorithm"}
+            //non-granulomatous alternating is HLA_B27
         ]
     },
-    kp :
-    {
-        description: ``,
-        question: "What is the KP of the uveitis?",
-        options: [
-            { label: "Stellate", nextQuestion: "fus_algorithm"},
-            { label: "Granulomatous", nextQuestion: "viralAU_algorithm"},
-            { label: "Non-granulomatous", nextQuestion: "screenViralAU" }
-        ]
-    },
-    screenViralAU :
-    {
-        description: `Ophthalmic examination`,
-        question: "Increased IOP in the absence of prior steroid treatment or iris atrophy/transillumination?",
-        options: [
-            { label: "Yes", nextQuestion: "viralAU_algorithm"},
-            { label: "No", nextQuestion: "HLA_B27"},
-        ]
-    },
-    fus_algorithm :
-    {
+    fus_algorithm : {
         description: `
         <span style='font-weight:500'>Next step:</span> FUS-like AU algorithm<br>
-        <span style='font-weight:500'>Differential diagnosis: </span>
-        ${buttonModal('FUS','Fuchs Uveitis Syndrom',disDatabase('fus'),'fus')}
-        ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
+        <span style='font-weight:500'>Possible diagnosis diagnosis: </span>
+        ${disButtonModal('fus')}${disButtonModal('cmv')}
+        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
         `,
         question: `Does the patient have endotheliitis or nodular, coin-shaped endothelial lesions?`,
         options: [
@@ -131,256 +100,292 @@ const questionList = {
             { label: "No", nextQuestion: "FUS"}
         ],
         ddx: [
-            `${buttonModal('FUS','Fuchs Uveitis Syndrom',disDatabase('fus'),'fus')}
-            ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}`
+            `${disButtonModal('fus')}${disButtonModal('cmv')}
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
+            `
         ]
     },
-    CMV : {
+    chronic_ul_ng_ddx : {
         description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${buttonModal('CMV','Cytomagalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
-        `,
-        question: ``,
-        options: []
-    },
-    FUS : {
-        description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${buttonModal('FUS','Fuchs Uveitis Syndrom',disDatabase('fus'),'fus')}
-        `,
-        question: ``,
-        options: []
-    },
-    viralAU_algorithm :
-    {
-        description: `
-        <span style='font-weight:500'>Next step:</span> Viral AU algorithm <br>
-        <span style='font-weight:500'>Differential diagnosis: </span>
-        ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
-        ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
-        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}
-        `,
-        question: `Continue?`,
+        Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
+        ${disButtonModal('hlab27')} ${disButtonModal('jia')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        question: "Does the patient have heterochromia",
         options: [
-            { label: "Yes", nextQuestion: "VIAUQ1"},
-            { label: "No", nextQuestion: "finish"}
+            { label: "Yes", nextQuestion: "fus_algorithm"},
+            { label: "No", nextQuestion: "chronic_ul_ng_clinical_picture"}
         ],
-        ddx: [
-            `${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
-            ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
-            ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}`
-        ]
+        ddx : [
+            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
+            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
+        ]   
     },
-    VIAUQ1 : {
-        description: `Ophthalmic examination`,
-        question: `Does the patient have dendritic keratitis?`,
-        options: [
-            { label: "Yes", nextQuestion: "HSV"},
-            { label: "No", nextQuestion: "VIAUQ2"}
-        ]
-    },
-    HSV : {
+    chronic_ul_ng_clinical_picture :{
         description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
-        `,
-        question: ``,
-        options: []
-    },
-    VIAUQ2 : {
-        description: `Ophthalmic examination`,
-        question: `Does the patient have concurrent or recent dermatomal Herpes Zoster?`,
+        Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')}
+        ${disButtonModal('hlab27')} ${disButtonModal('jia')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        question: "Which clinical feature is most similar to the patient's presentation",
         options: [
-            { label: "Yes", nextQuestion: "VZV"},
-            { label: "No", nextQuestion: "VIAUQ3"}
-        ]
-    },
-    VZV : {
-        description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}
-        `,
-        question: ``,
-        options: []
-    },
-    VIAUQ3 : {
-        description: ``,
-        question: `Which clinical feature is most similar to the patient's presentation`,
-        options: [
-            { label: "Hypertensive anterior uveitis with granulomatous KPs", nextQuestion: "HSVORVZV"},
-            { label: "PSS-like anterior uveitis", nextQuestion: "PSSLIKE"},
-        ]
-    },
-    HSVORVZV : {
-        description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
-        ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}
-        `,
-        question: `Which clinical feature is most similar to the patient's presentation`,
-        options: [
-            { label: "Sectoral iris atrophy in a patient < 50 years of age", nextQuestion: "HSV"},
-            { label: "Sectoral iris atrophy in a patient > 60 years of age", nextQuestion: "VZV"},
-            { label: "None", nextQuestion: "UAU"}
+            { label: "History of symptomatic attacks", nextQuestion: "acute_m_ul_ng_ddx"},
+            //asking if it is viau or hlab27
+            { label: "Age < 16 with insidious onset and mostly asymptomatic/minimally symptomatic history", nextQuestion: "is_it_jia"}
         ],
-        ddx: [
-            `${buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')}
-            ${buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')}`
-        ]
+        ddx : [
+            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
+            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
+        ]  
     },
-    PSSLIKE : {
+    is_it_jia: {
         description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}
-        `,
-        question: `Does the patient have endotheliitis or nodular, coin-shaped endothelial lesions?`,
+        Possible diagnosis: <br> ${disButtonModal('jia')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        question: "Does the patient have diagnosed juvenile idiopathic arthritis?",
         options: [
-            { label: "Yes", nextQuestion: "CMV"},
-            { label: "No", nextQuestion: "UAU"}
-        ],
-        ddx: [
-            `${buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')}`
-        ]
-    },
-    HLA_B27 :
-    {
-        question: ``,
-        description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${buttonModal('HLA-B27 SpA AU','HLA-B27 Spondyloarthritis Anterior Uveitis',disDatabase('hlab27'),'hlab27')}
-        <br>
-        <span style='font-weight:400'>We recommend following DUET algorithm</span>
-        <br><br>
-        <img src="/img/duet.png" class="img-fluid"></img>`,
-        options: [
-        ]
-    },
-    laterality_c :
-    {
-        description: ``,
-        question: "What is the laterality of the uveitis?",
-        options: [
-            { label: "History of Alternating", nextQuestion: "HLA_B27"},
-            { label: "Unilateral", nextQuestion: "RO_children"},
-            { label: "Bilateral", nextQuestion: "RO_chronic_granulomatous_AU" }
-        ]
-    },
-    RO_chronic_granulomatous_AU : {
-        description: ``,
-        question: "Does it have granulomatous KPs?",
-        options: [
-            { label: "Yes", nextQuestion: "RO_sarcoidosis_after_chronic_bilaterl"},
-            { label: "No", nextQuestion: "CCBAU"},
-        ]
-    },
-    RO_sarcoidosis_after_chronic_bilaterl : 
-    {
-        description: ``,
-        question: "(under development) Does the patient have sarcoidosis?",
-        options: [
-            { label: "Yes", nextQuestion: "sarcoidosis"},
-            { label: "No", nextQuestion: "viralAU_algorithm"},
-        ]
-    },
-    sarcoidosis :
-    {
-        description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
-        `,
-        question: ``,
-        options: []
-    },
-    RO_children :
-    {
-        description: ``,
-        question: "Is patient's age < 16?",
-        options: [
-            //CCBAU => childrean chronic bilateral anterior uveitis
-            { label: "Yes", nextQuestion: "CCBAU"},
-            { label: "No", nextQuestion: "heterochromia_c"},
-        ]
-    },
-    CCBAU : {
-        description: `
-        <span style='font-weight:500'>Next step:</span> Chronic anterior uveitis algorithm <br>
-        <span style='font-weight:500'>Differential diagnosis: </span>
-        ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
-        ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}
-        `,
-        question: `Continue?`,
-        options: [
-            { label: "Yes", nextQuestion: "RO_JIA"},
-            { label: "No", nextQuestion: "finish"}
-        ],
-        ddx: [
-            `${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
-            ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}`
-        ]
-    },
-    RO_JIA: {
-        description: ``,
-        question: "(under development) Does the patient have diagnosed oligoarhtritis or RF-negative polyarthritis or juvenile psoriatic arthritis?",
-        options: [
-            //CCBAU => childrean chronic bilateral anterior uveitis
             { label: "Yes", nextQuestion: "JIA"},
-            { label: "No", nextQuestion: "RO_TINU"},
-        ]
+            { label: "No", nextQuestion: "finish"}
+        ],
+        ddx : [
+            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
+            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
+        ]  
     },
     JIA :
     {
         description: `
         Suspected diagnosis: 
-        ${buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')}
-        `,
+        ${disButtonModal('jia')} `,
         question: `
         `,
         options: [
         ]
     },
-    RO_TINU :
+
+    laterality_m :
     {
         description: ``,
-        question: "(under development) Does the patient have systemic symptoms? (anorexia, fever, weight loss, fatigue, and polyuria)",
+        question: "What is the laterality of the uveitis?",
         options: [
-            //CCBAU => childrean chronic bilateral anterior uveitis
-            { label: "Yes", nextQuestion: "TINU"},
-            { label: "No", nextQuestion: "UAU"},
+            { label: "Unilateral", nextQuestion: "acute_m_ul_kp"},
+            { label: "Bilateral", nextQuestion: "acute_m_bl_kp" }
         ]
     },
-    TINU :
+    laterality_r : {
+        description: ``,
+        question: "What is the laterality of the uveitis?",
+        options: [
+            { label: "Unilateral", nextQuestion: "acute_m_ul_kp"},
+            { label: "Bilateral", nextQuestion: "acute_m_bl_kp" },
+            //recurrent anterior uveitis will be asked with same questions as acute monophasic unilateral and bilateral
+            { label: "Alternating", nextQuestion: "acute_r_al_kp" }
+        ]
+    },
+    acute_r_al_kp:{
+        description: ``,
+        question: "What is the KPs of the uveitis?",
+        options: [
+            { label: "Granulomatous", nextQuestion: "acute_r_al_g_ddx"},
+            { label: "Non-granulomatous", nextQuestion: "HLA_B27" }
+            //non-granulomatous alternating is HLA_B27
+        ]
+    },
+    acute_r_al_g_ddx :{
+        description: `Possible diagnosis: <br>
+         ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
+        `,
+        question: "",
+        options: [
+        ]
+    },
+    acute_m_ul_kp : {
+        description: ``,
+        question: "What is the KPs of the uveitis?",
+        options: [
+            { label: "Granulomatous", nextQuestion: "acute_m_ul_g_ddx"},
+            { label: "Non-granulomatous", nextQuestion: "acute_m_ul_ng_ddx" }
+        ]
+    },
+    acute_m_ul_g_ddx :
+    {
+        description: `Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
+        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
+        <span style='font-weight:500'>Next step:</span> Viral AU algorithm <br>`,
+        question: `Continue?`,
+        options: [
+            { label: "Yes", nextQuestion: "viau_q1"},
+            { label: "No", nextQuestion: "finish" }
+        ],
+        ddx:[
+            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')}
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
+        ]
+    },  
+    viau_q1 :
     {
         description: `
-        Suspected diagnosis: 
-        ${buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')}
+        Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
+        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
+        `,
+        question: `Does the patient have dendritic keratitis?`,
+        options: [
+            { label: "Yes", nextQuestion: "HSV"},
+            { label: "No", nextQuestion: "viau_q2"}
+        ],
+        ddx: [
+            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
+        ]
+    },
+    HSV : {
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
+        ${disButtonModal('hsv')}
+        `,
+        question: ``,
+        options: [],
+        ddx: [`${disButtonModal('hsv')}`]
+    },
+    viau_q2 : {
+        description: ``,
+        question: `Does the patient have concurrent or recent dermatomal Herpes Zoster?`,
+        options: [
+            { label: "Yes", nextQuestion: "VZV"},
+            { label: "No", nextQuestion: "viau_q3"}
+        ]
+    },
+    VZV : {
+        description: `
+        <span style='font-weight:500'>Suspected diagnosis:</span>
+        ${disButtonModal('vzv')}
+        `,
+        question: ``,
+        options: [],
+        ddx: [`${disButtonModal('vzv')}`]
+    },
+    viau_q3 : {
+        description: ``,
+        question: `Which clinical feature is most similar to the patient's presentation`,
+        options: [
+            { label: "Granulomatous cluster of small and medium-sized KPs in Arlt's triangle [with or without corneal scars]", nextQuestion: "hsv_or_vzv"},
+            { label: "PSS with few medium-sized KPs, minimal anterior chamber cells and extremely high IOP", nextQuestion: "pss_like_cmv"},
+            { label: "None above", nextQuestion: "finish"}
+        ]
+    },
+    hsv_or_vzv : {
+        description: `
+        <span style='font-weight:500'>Possible diagnosis:<br></span>
+        ${disButtonModal('hsv')}
+        ${disButtonModal('vzv')}
+        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
+        `,
+        question: `Which clinical feature is most similar to the patient's presentation`,
+        options: [
+            { label: "Sectoral iris atrophy in a patient < 50 years of age", nextQuestion: "HSV"},
+            { label: "Sectoral iris atrophy in a patient > 60 years of age", nextQuestion: "VZV"},
+            { label: "None", nextQuestion: "finish"}
+        ],
+        ddx: [
+            `${disButtonModal('hsv')}
+            ${disButtonModal('vzv')}`
+        ]
+    },
+    pss_like_cmv : {
+        description: `
+        <span style='font-weight:500'>Possible diagnosis:</span>
+        ${disButtonModal('cmv')} <br>
+        To diagnose Cytomegalovirus, a positive PCR should be obtained`,
+        question: ``,
+        options: [
+        ],
+        ddx: [
+            `${disButtonModal('cmv')}`
+        ]
+    },
+    CMV : {
+        description: `
+        <span style='font-weight:500'>Possible diagnosis:</span>
+        ${disButtonModal('cmv')} <br>
+        To diagnose Cytomegalovirus, a positive PCR should be obtained`,
+        question: ``,
+        options: [
+        ],
+        ddx: [
+            `${disButtonModal('cmv')}`
+        ]
+    },
+    FUS: {
+        description: `
+        <span style='font-weight:500'>Possible diagnosis:</span>
+        ${disButtonModal('fus')}
+        `,
+        question: ``,
+        options: []
+    },
+    acute_m_ul_ng_ddx: {
+        description: `Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
+        ${disButtonModal('hlab27')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
+        `,
+        question: `Increased IOP in the absence of prior steroid treatment or iris atrophy/transillumination?`,
+        options: [
+            { label: "Yes", nextQuestion: "acute_m_ul_g"},
+            //going to acute_m_ul_g because it ask whether the user wants to do VIAU algorithm
+            { label: "No", nextQuestion: "HLA_B27" }
+        ],
+        ddx:[
+            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')}
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
+        ]
+    },
+    HLA_B27 :
+    {
+        description: `
+        Possible diagnosis:
+        ${disButtonModal('hlab27')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
+        <br>
+        <span style='font-weight:400'>We recommend following DUET algorithm</span>
+        <br><br>
+        <img src="/img/duet.png" class="img-fluid"></img>`,
+        question: ``,
+        options: [
+        ]
+    },
+    acute_m_bl_kp: {
+        description: ``,
+        question: "What is the KPs of the uveitis?",
+        options: [
+            { label: "Granulomatous", nextQuestion: "acute_m_bl_g_ddx"},
+            { label: "Non-granulomatous", nextQuestion: "acute_m_bl_ng_ddx" }
+        ]
+    },
+    acute_m_bl_g_ddx :{
+        description: `Possible diagnosis: <br>
+         ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
+        `,
+        question: "",
+        options: [
+        ]
+    },
+    acute_m_bl_ng_ddx : {
+        description: `Possible diagnosis: <br>
+        ${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
+        `,
+        question: "(under development) Does the patient have systemic symptoms? (anorexia, fever, weight loss, fatigue, and polyuria)",
+        options: [
+            { label: "Yes", nextQuestion: "TINU"},
+            { label: "No", nextQuestion: "finish" }
+        ]
+    },
+    TINU : {
+        description: `
+        Possible diagnosis: 
+        ${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
         `,
         question: `
         `,
         options: [
-        ]
-    },
-    heterochromia_c : 
-    {
-        description: `Ophthalmic examination`,
-        question: "Does the patient have heterochromia?",
-        options: [
-            { label: "Yes", nextQuestion: "fus_algorithm"},
-            { label: "No", nextQuestion: "kp_c" }
-        ]
-    },
-    kp_c :
-    {
-        description: ``,
-        question: "What is the KP of the uveitis?",
-        options: [
-            { label: "Stellate", nextQuestion: "fus_algorithm"},
-            { label: "Granulomatous", nextQuestion: "viralAU_algorithm"},
-            { label: "Non-granulomatous", nextQuestion: "screenViralAU" }
         ]
     },
     In_progress :
     {
-        description: ``,
+        description: `Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
+        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
         question: "In progress",
         options: [
         ]
@@ -389,14 +394,6 @@ const questionList = {
     {
         description: ``,
         question: "Thank you",
-        options: [
-        ]
-    },
-    UAU :
-    {
-        description: ``,
-        question: `
-        `,
         options: [
         ]
     }
@@ -426,8 +423,9 @@ function questionBoxes(currentQuestion,back){
         ${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
         ${buttonModal('TB','Tubercular uveitis',disDatabase('tb'),'tb')} are recommend to be included in the workup.` 
     }
+
     if (questionList[currentQuestion].hasOwnProperty('ddx')) {
-        console.log('yeah!')
+        console.log(DDx)
         DDx.push(questionList[currentQuestion].ddx)
     }
 
@@ -463,6 +461,14 @@ function questionBoxes(currentQuestion,back){
     box.appendChild(questionBox);
     box.appendChild(optionsBox);
 
+    if (questionList[currentQuestion].hasOwnProperty('footer')) {
+        let footerBox = document.createElement('div');
+        footerBox.id = `footer-${currentQuestion}`
+        footerBox.innerHTML = '<br><br><span style="font-weight: 500">footnote: </span>'
+        footerBox.innerHTML += questionList[currentQuestion].footer;
+        box.appendChild(footerBox);
+    }
+
     //Create button Back and Next [Finish if no option left]
     if(questionList[currentQuestion].options.length==0){
         box.innerHTML += `
@@ -488,6 +494,7 @@ function questionBoxes(currentQuestion,back){
         <div id='message-${currentQuestion}' style="color:red;"></div>
         `;
     }
+
     
 
     //append everything into container
@@ -618,7 +625,7 @@ function disDatabase(dis){
         <img src="/img/SUN-SYPHILIS.png" class="img-fluid container-gap"></img>
         <img src="/img/SUN-SYPHILIS-SCREENING.png" class="img-fluid container-gap"></img>
         `,
-
+        uau : ``,
         //SUN table and images
         anatLoc : `
         <img src="/img/SUN-ANATOMIC-LOCATION.png" class="img-fluid container-gap"></img>
@@ -628,4 +635,37 @@ function disDatabase(dis){
         `
     }
     return database[dis]
+}
+
+function disButtonModal(dis){
+    if(dis==='cmv'){
+        return buttonModal('CMV AU','Cytomegalovirus Anterior Uveitis',disDatabase('cmv'),'cmv')
+    }
+    if(dis==='hsv'){
+        return buttonModal('HSV AU','Herpes Simplex Virus Anterior Uveitis',disDatabase('hsv'),'hsv')
+    }
+    if(dis==='vzv'){
+        return buttonModal('VZV AU','Varicella Zoster Virus Anterior Uveitis',disDatabase('vzv'),'vzv')
+    }
+    if(dis==='fus'){
+        return buttonModal('FUS','Fuchs Uveitis Syndrom',disDatabase('fus'),'fus')
+    }
+    if(dis==='hlab27'){
+        return buttonModal('HLA-B27 SpA AU','HLA-B27 Spondyloarthritis Anterior Uveitis',disDatabase('hlab27'),'hlab27')
+    }
+    if(dis==='jia'){
+        return buttonModal('JIA AU','Juvenile Idiopathic Arthritis Anterior Uveitis',disDatabase('jia'),'jia')
+    }
+    if(dis==='tinu'){
+        return buttonModal('TINU','Tubulointerstitial Nephritis Uveitis',disDatabase('tinu'),'tinu')
+    }
+    if(dis==='sarcoidosis'){
+        return buttonModal('Sarcoid AU','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')
+    }
+    if(dis==='syphilis'){
+        return buttonModal('Syphilis','Syphilitic Uveitis',disDatabase('syphilis'),'syphilis')
+    }
+    if(dis==='uau'){
+        return buttonModal('Undifferentiated anterior uveitis','Undifferentiated anterior uveitis',disDatabase('uau'),'uau')
+    }
 }
