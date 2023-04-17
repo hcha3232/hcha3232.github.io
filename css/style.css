@@ -10,6 +10,10 @@ body {
     margin-bottom: 5px;
 }
 
+.question-gap {
+    margin-bottom: 10px;
+}
+
 .list-p{
     padding: 0;
 }

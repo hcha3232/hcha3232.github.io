@@ -16,7 +16,7 @@ const questionList = {
             { label: "Posterior uveitis", nextQuestion: "In_progress" },
             { label: "Panuveitis", nextQuestion: "In_progress" }
         ],
-        footer: `${buttonModal('Anatomic CLassification','Anatomic Classification',disDatabase('anatLoc'),'anatLoc')}`
+        footer: `${buttonModal('Anatomic Classification','Anatomic Classification',disDatabase('anatLoc'),'anatLoc')}`
     },
     course :
     {   
@@ -438,6 +438,7 @@ function questionBoxes(currentQuestion,back){
     
     let descriptionBox = document.createElement('div');
     descriptionBox.id = `description-${currentQuestion}`
+    descriptionBox.classList = "lh-lg question-gap"
     descriptionBox.innerHTML = questionList[currentQuestion].description;
 
     questionBox.innerHTML = `<h6>${questionList[currentQuestion].question}</h6>`;
