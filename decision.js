@@ -742,9 +742,9 @@ function disButtonModal(dis){
         return buttonModal('Sarcoid AU','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')
     }
     if(dis==='syphilis'){
-        return buttonModal('Syphilis','Syphilitic Uveitis',disDatabase('syphilis'),'syphilis')
+        return buttonModal('Syphilitic AU','Syphilitic Uveitis',disDatabase('syphilis'),'syphilis')
     }
     if(dis==='uau'){
-        return buttonModal('Undifferentiated anterior uveitis','Undifferentiated anterior uveitis',disDatabase('uau'),'uau')
+        return buttonModal('Undifferentiated AU','Undifferentiated anterior uveitis',disDatabase('uau'),'uau')
     }
 }
