@@ -180,7 +180,7 @@ const questionList = {
     },
     NOT_DIAGNOSED_JIA : {
         description: `
-        Consult with paediatrician
+        Consult with the paediatrician
         `,
         question: `
         `,
@@ -434,7 +434,7 @@ const questionList = {
     },
     TINU : {
         description: `
-        Consult with nephrologist
+        Consult with the nephrologist
         `,
         question: `
         `,
