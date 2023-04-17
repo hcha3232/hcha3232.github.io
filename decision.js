@@ -20,19 +20,19 @@ const questionList = {
     },
     course :
     {   
-        description: `
-        Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
-        ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        description: ``,
         question: "What is the course of the uveitis?",
         options: [
             { label: "Acute, monophasic", nextQuestion: "laterality_m"},
             { label: "Acute, recurrent", nextQuestion: "laterality_r"},
             { label: "Chronic", nextQuestion: "laterality_c" }
         ],
-        ddx : [
-            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
-            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
-        ],
+        ddx : {
+            most_likely: ``,
+            possible: `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
+            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: ``
+        },
 
         footer: `${buttonModal('Course','Course',disDatabase('course'),'course')}`
     },
@@ -57,15 +57,17 @@ const questionList = {
     },
     chronic_bl_ng_ddx : {
         description: `
-        Possible diagnosis: <br>${disButtonModal('jia')} ${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        `,
         question: "Is the patient's age < 16 with insidious onset and mostly asymptomatic/minimally symptomatic history?",
         options: [
             { label: "Yes", nextQuestion: "is_it_jia"},
             { label: "No", nextQuestion: "chronic_bl_ng_not_jia"}
         ],
-        ddx : [
-            `${disButtonModal('jia')}${disButtonModal('tinu')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
-        ]   
+        ddx : {
+            most_likely: ``,
+            possible: `${disButtonModal('jia')}${disButtonModal('tinu')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')}${disButtonModal('vzv')}${disButtonModal('fus')} ${disButtonModal('hlab27')}`
+        }   
     },
     chronic_bl_ng_not_jia : {
         description: ``,
@@ -73,8 +75,22 @@ const questionList = {
         options: [
             //CCBAU => childrean chronic bilateral anterior uveitis
             { label: "Yes", nextQuestion: "TINU"},
-            { label: "No", nextQuestion: "finish"},
+            { label: "No", nextQuestion: "NOT_TINU"},
         ]
+    },
+    NOT_TINU_c:{
+        description: `
+        `,
+        question: `
+        `,
+        options: [
+        ],
+        ddx: {
+            most_likely: ``,
+            possible: `${disButtonModal('jia')}${disButtonModal('tinu')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')}${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')} ${disButtonModal('vzv')}
+            ${disButtonModal('fus')}${disButtonModal('hlab27')}`
+        }
     },
     chronic_ul_kp: {
         description: ``,
@@ -89,75 +105,94 @@ const questionList = {
     },
     fus_algorithm : {
         description: `
-        <span style='font-weight:500'>Next step:</span> FUS-like AU algorithm<br>
-        <span style='font-weight:500'>Possible diagnosis diagnosis: </span>
-        ${disButtonModal('fus')}${disButtonModal('cmv')}
-        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
         `,
         question: `Does the patient have endotheliitis or nodular, coin-shaped endothelial lesions?`,
         options: [
             { label: "Yes", nextQuestion: "CMV"},
             { label: "No", nextQuestion: "FUS"}
         ],
-        ddx: [
-            `${disButtonModal('fus')}${disButtonModal('cmv')}
+        ddx: {
+            most_likely: ``,
+            possible: `${disButtonModal('fus')}${disButtonModal('cmv')}
             ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
-            `
-        ]
+            `,
+            less_likely: `${disButtonModal('hsv')}${disButtonModal('vzv')}
+            ${disButtonModal('hlab27')}${disButtonModal('jia')} ${disButtonModal('tinu')}`
+        }
     },
     chronic_ul_ng_ddx : {
         description: `
-        Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
-        ${disButtonModal('hlab27')} ${disButtonModal('jia')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        `,
         question: "Does the patient have heterochromia",
         options: [
             { label: "Yes", nextQuestion: "fus_algorithm"},
             { label: "No", nextQuestion: "chronic_ul_ng_clinical_picture"}
         ],
-        ddx : [
-            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
-            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
-        ]   
+        ddx : {
+            most_likely: ``,
+            possible: `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}
+            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('tinu')}`
+        }
     },
     chronic_ul_ng_clinical_picture :{
         description: `
-        Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')}
-        ${disButtonModal('hlab27')} ${disButtonModal('jia')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        `,
         question: "Which clinical feature is most similar to the patient's presentation",
         options: [
             { label: "History of symptomatic attacks", nextQuestion: "acute_m_ul_ng_ddx"},
             //asking if it is viau or hlab27
             { label: "Age < 16 with insidious onset and mostly asymptomatic/minimally symptomatic history", nextQuestion: "is_it_jia"}
         ],
-        ddx : [
-            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
-            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
-        ]  
+        ddx : {
+            most_likely: ``,
+            possible: `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
+            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('fus')} ${disButtonModal('tinu')}`
+        }
     },
     is_it_jia: {
         description: `
-        Possible diagnosis: <br> ${disButtonModal('jia')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+        `,
         question: "Does the patient have diagnosed juvenile idiopathic arthritis?",
         options: [
             { label: "Yes", nextQuestion: "JIA"},
-            { label: "No", nextQuestion: "finish"}
+            { label: "No", nextQuestion: "NOT_DIAGNOSED_JIA"}
         ],
-        ddx : [
-            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
-            ${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
-        ]  
+        ddx : {
+            most_likely: ``,
+            possible: `${disButtonModal('jia')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}${disButtonModal('hlab27')}${disButtonModal('tinu')}`
+        }
     },
     JIA :
     {
-        description: `
-        Suspected diagnosis: 
-        ${disButtonModal('jia')} `,
+        description: ``,
         question: `
         `,
         options: [
-        ]
+        ],
+        ddx : {
+            most_likely: `${disButtonModal('jia')}`,
+            possible: `${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')}${disButtonModal('vzv')} ${disButtonModal('fus')}${disButtonModal('hlab27')}${disButtonModal('tinu')}`
+        }
     },
-
+    NOT_DIAGNOSED_JIA : {
+        description: `
+        Consult with paediatrician
+        `,
+        question: `
+        `,
+        options: [
+        ],
+        ddx: {
+            most_likely: `${disButtonModal('jia')}`,
+            possible: `${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')} ${disButtonModal('vzv')}
+            ${disButtonModal('fus')}${disButtonModal('hlab27')} ${disButtonModal('tinu')}`
+        }
+    },
     laterality_m :
     {
         description: ``,
@@ -187,12 +222,17 @@ const questionList = {
         ]
     },
     acute_r_al_g_ddx :{
-        description: `Possible diagnosis: <br>
-         ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
+        description: `
         `,
         question: "",
         options: [
-        ]
+        ],
+        ddx: {
+            most_likely: ``,
+            possible: `${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')} ${disButtonModal('vzv')}
+            ${disButtonModal('fus')}${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('tinu')}`
+        }
     },
     acute_m_ul_kp : {
         description: ``,
@@ -204,43 +244,33 @@ const questionList = {
     },
     acute_m_ul_g_ddx :
     {
-        description: `Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
-        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
-        <span style='font-weight:500'>Next step:</span> Viral AU algorithm <br>`,
-        question: `Continue?`,
-        options: [
-            { label: "Yes", nextQuestion: "viau_q1"},
-            { label: "No", nextQuestion: "finish" }
-        ],
-        ddx:[
-            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')}
-            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
-        ]
-    },  
-    viau_q1 :
-    {
         description: `
-        Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
-        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
         `,
         question: `Does the patient have dendritic keratitis?`,
         options: [
             { label: "Yes", nextQuestion: "HSV"},
             { label: "No", nextQuestion: "viau_q2"}
         ],
-        ddx: [
-            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
-            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
-        ]
-    },
+        ddx: {
+            most_likely: ``,
+            possible: `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('fus')}${disButtonModal('hlab27')} 
+            ${disButtonModal('jia')}${disButtonModal('tinu')}`
+        }
+    },  
     HSV : {
         description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${disButtonModal('hsv')}
         `,
         question: ``,
         options: [],
-        ddx: [`${disButtonModal('hsv')}`]
+        ddx: {
+            most_likely: `${disButtonModal('hsv')}`,
+            possible: `${disButtonModal('cmv')}${disButtonModal('vzv')} 
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('fus')}${disButtonModal('hlab27')} 
+            ${disButtonModal('jia')}${disButtonModal('tinu')}`    
+        }
     },
     viau_q2 : {
         description: ``,
@@ -252,12 +282,16 @@ const questionList = {
     },
     VZV : {
         description: `
-        <span style='font-weight:500'>Suspected diagnosis:</span>
-        ${disButtonModal('vzv')}
         `,
         question: ``,
         options: [],
-        ddx: [`${disButtonModal('vzv')}`]
+        ddx: {
+            most_likely: `${disButtonModal('vzv')}`,
+            possible: `${disButtonModal('cmv')}${disButtonModal('hsv')} 
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('fus')}${disButtonModal('hlab27')} 
+            ${disButtonModal('jia')}${disButtonModal('tinu')}`    
+        }
     },
     viau_q3 : {
         description: ``,
@@ -265,86 +299,103 @@ const questionList = {
         options: [
             { label: "Granulomatous cluster of small and medium-sized KPs in Arlt's triangle [with or without corneal scars]", nextQuestion: "hsv_or_vzv"},
             { label: "PSS with few medium-sized KPs, minimal anterior chamber cells and extremely high IOP", nextQuestion: "pss_like_cmv"},
-            { label: "None above", nextQuestion: "finish"}
+            { label: "None above", nextQuestion: "NO_VIRAL_PICTURE"}
         ]
+    },
+    NO_VIRAL_PICTURE : {
+        description: `
+        `,
+        question: ``,
+        options: [],
+        ddx: {
+            most_likely: ``,
+            possible: `${disButtonModal('cmv')}${disButtonModal('hsv')} ${disButtonModal('vzv')} 
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')}${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('fus')}${disButtonModal('hlab27')} 
+            ${disButtonModal('jia')}${disButtonModal('tinu')}`    
+        }
     },
     hsv_or_vzv : {
         description: `
-        <span style='font-weight:500'>Possible diagnosis:<br></span>
-        ${disButtonModal('hsv')}
-        ${disButtonModal('vzv')}
-        ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
         `,
         question: `Which clinical feature is most similar to the patient's presentation`,
         options: [
             { label: "Sectoral iris atrophy in a patient < 50 years of age", nextQuestion: "HSV"},
             { label: "Sectoral iris atrophy in a patient > 60 years of age", nextQuestion: "VZV"},
-            { label: "None", nextQuestion: "finish"}
+            { label: "None", nextQuestion: "NO_VIRAL_PICTURE"}
         ],
-        ddx: [
-            `${disButtonModal('hsv')}
-            ${disButtonModal('vzv')}`
-        ]
     },
     pss_like_cmv : {
         description: `
-        <span style='font-weight:500'>Possible diagnosis:</span>
-        ${disButtonModal('cmv')} <br>
-        To diagnose Cytomegalovirus, a positive PCR should be obtained`,
+        To diagnose Cytomegalovirus anterior uveitis, a positive PCR should be obtained`,
         question: ``,
         options: [
         ],
-        ddx: [
-            `${disButtonModal('cmv')}`
-        ]
+        ddx: {
+            most_likely: `${disButtonModal('cmv')}`,
+            possible: `${disButtonModal('hsv')}${disButtonModal('vzv')} 
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('fus')}${disButtonModal('hlab27')} 
+            ${disButtonModal('jia')}${disButtonModal('tinu')}`    
+        }
     },
     CMV : {
         description: `
-        <span style='font-weight:500'>Possible diagnosis:</span>
-        ${disButtonModal('cmv')} <br>
-        To diagnose Cytomegalovirus, a positive PCR should be obtained`,
+        To diagnose Cytomegalovirus anterior uveitis, a positive PCR should be obtained`,
         question: ``,
         options: [
         ],
-        ddx: [
-            `${disButtonModal('cmv')}`
-        ]
+        ddx: {
+            most_likely: `${disButtonModal('cmv')}`,
+            possible: `${disButtonModal('fus')}
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('hsv')}${disButtonModal('vzv')}${disButtonModal('hlab27')} 
+            ${disButtonModal('jia')}${disButtonModal('tinu')}`
+        }
     },
     FUS: {
         description: `
-        <span style='font-weight:500'>Possible diagnosis:</span>
-        ${disButtonModal('fus')}
         `,
         question: ``,
-        options: []
+        options: [],
+        ddx: {
+            most_likely: `${disButtonModal('fus')}`,
+            possible: `${disButtonModal('cmv')}
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('hsv')}${disButtonModal('vzv')}${disButtonModal('hlab27')} 
+            ${disButtonModal('jia')}${disButtonModal('tinu')}`
+        }
     },
     acute_m_ul_ng_ddx: {
-        description: `Possible diagnosis: <br>${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')} 
-        ${disButtonModal('hlab27')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
+        description: `
         `,
         question: `Increased IOP in the absence of prior steroid treatment or iris atrophy/transillumination?`,
         options: [
-            { label: "Yes", nextQuestion: "acute_m_ul_g"},
+            { label: "Yes", nextQuestion: "acute_m_ul_g_ddx"},
             //going to acute_m_ul_g because it ask whether the user wants to do VIAU algorithm
             { label: "No", nextQuestion: "HLA_B27" }
         ],
-        ddx:[
-            `${disButtonModal('cmv')} ${disButtonModal('hsv')}${disButtonModal('vzv')}
-            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`
-        ]
+        ddx: {
+            most_likely: ``,
+            possible: `${disButtonModal('cmv')}${disButtonModal('hsv')}${disButtonModal('vzv')}${disButtonModal('hlab27')}
+            ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('fus')}${disButtonModal('jia')}${disButtonModal('tinu')}`
+        }
     },
     HLA_B27 :
     {
         description: `
-        Possible diagnosis:
-        ${disButtonModal('hlab27')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
-        <br>
         <span style='font-weight:400'>We recommend following DUET algorithm</span>
-        <br><br>
+        <br>
         <img src="/img/duet.png" class="img-fluid"></img>`,
         question: ``,
         options: [
-        ]
+        ],
+        ddx: {
+            most_likely: `${disButtonModal('hlab27')}`,
+            possible: `${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')}${disButtonModal('vzv')}${disButtonModal('fus')}${disButtonModal('jia')}${disButtonModal('tinu')}`
+        }
     },
     acute_m_bl_kp: {
         description: ``,
@@ -355,32 +406,60 @@ const questionList = {
         ]
     },
     acute_m_bl_g_ddx :{
-        description: `Possible diagnosis: <br>
-         ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
-        `,
+        description: ``,
         question: "",
         options: [
-        ]
+        ],
+        ddx: {
+            most_likely: ``,
+            possible: `${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')} ${disButtonModal('vzv')}
+            ${disButtonModal('fus')}${disButtonModal('hlab27')} ${disButtonModal('jia')}${disButtonModal('tinu')}`
+        }
     },
     acute_m_bl_ng_ddx : {
-        description: `Possible diagnosis: <br>
-        ${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')} <br>
+        description: `
         `,
         question: "(under development) Does the patient have systemic symptoms? (anorexia, fever, weight loss, fatigue, and polyuria)",
         options: [
             { label: "Yes", nextQuestion: "TINU"},
-            { label: "No", nextQuestion: "finish" }
-        ]
+            { label: "No", nextQuestion: "NOT_TINU_a" }
+        ],
+        ddx: {
+            most_likely: ``,
+            possible: `${disButtonModal('tinu')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')} ${disButtonModal('vzv')}
+            ${disButtonModal('fus')}${disButtonModal('hlab27')} ${disButtonModal('jia')}`
+        }
     },
     TINU : {
         description: `
-        Possible diagnosis: 
-        ${disButtonModal('tinu')} ${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}
+        Consult with nephrologist
         `,
         question: `
         `,
         options: [
-        ]
+        ],
+        ddx: {
+            most_likely: `${disButtonModal('tinu')}`,
+            possible: `${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')} ${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')} ${disButtonModal('vzv')}
+            ${disButtonModal('fus')}${disButtonModal('hlab27')} ${disButtonModal('jia')}`
+        }
+    },
+    NOT_TINU_a : {
+        description: `
+        `,
+        question: `
+        `,
+        options: [
+        ],
+        ddx: {
+            most_likely: ``,
+            possible: ` ${disButtonModal('tinu')}${disButtonModal('syphilis')}${disButtonModal('sarcoidosis')}${disButtonModal('uau')}`,
+            less_likely: `${disButtonModal('cmv')}${disButtonModal('hsv')} ${disButtonModal('vzv')}
+            ${disButtonModal('fus')}${disButtonModal('hlab27')} ${disButtonModal('jia')}`
+        }
     },
     In_progress :
     {
@@ -408,26 +487,6 @@ function questionBoxes(currentQuestion,back){
         pastquestions();
     }
 
-    if(currentQuestion == 'UAU'){
-        questionList[currentQuestion].description = `Our app would like to remind you that approximately 50% of patients with uveitis are diagnosed with <span style='font-weight:500'>undifferentiated uveitis</span><br><br>
-        Please make a note that the last step in the differential diagnosis process that we checked was `;
-        if(DDx.length!=0){
-            let lastDDx = DDx[DDx.length-1].join(` `);
-            questionList[currentQuestion].description += lastDDx;
-        }
-        else{
-            questionList[currentQuestion].description += `NULL`;
-        }
-        
-        questionList[currentQuestion].description += `<br><br>Also, ${buttonModal('Syphilis','Syphilitic Uveitis',disDatabase('syphilis'),'syphilis')}
-        ${buttonModal('Sarcoidosis','Sarcoid Uveitis',disDatabase('sarcoidosis'),'sarcoidosis')}
-        ${buttonModal('TB','Tubercular uveitis',disDatabase('tb'),'tb')} are recommend to be included in the workup.` 
-    }
-
-    if (questionList[currentQuestion].hasOwnProperty('ddx')) {
-        console.log(DDx)
-        DDx.push(questionList[currentQuestion].ddx)
-    }
 
     let box = document.createElement('div');
     box.id= `box-${currentQuestion}`
@@ -495,6 +554,26 @@ function questionBoxes(currentQuestion,back){
         </button>
         <div id='message-${currentQuestion}' style="color:red;"></div>
         `;
+    }
+
+    if(questionList[currentQuestion].hasOwnProperty('ddx')){
+        let ddxBox = document.createElement('div');
+        ddxBox.classList = "container-gap container-gap-top border border-4 p-2 lh-lg";
+        
+        let mostlikely = questionList[currentQuestion].ddx.most_likely
+        let possible = questionList[currentQuestion].ddx.possible
+        let lesslikely = questionList[currentQuestion].ddx.less_likely
+        ddxBox.innerHTML = `<span style="font-weight: 500">Differentials </span><br>`
+        ddxBox.innerHTML += 'Most likely diagnosis<br>'
+        ddxBox.innerHTML += mostlikely
+        if(mostlikely != ''){
+            ddxBox.innerHTML += '<br>'
+        }
+        ddxBox.innerHTML += 'Possible diagnosis<br>'
+        ddxBox.innerHTML += possible
+        ddxBox.innerHTML += '<br>Less likely diagnosis<br>'
+        ddxBox.innerHTML += lesslikely
+        box.appendChild(ddxBox)
     }
 
     
