@@ -704,7 +704,9 @@ function disDatabase(dis){
         <img src="/img/SUN-SYPHILIS.png" class="img-fluid container-gap"></img>
         <img src="/img/SUN-SYPHILIS-SCREENING.png" class="img-fluid container-gap"></img>
         `,
-        uau : ``,
+        uau : `
+        Undifferentiated uveitis accounts for 50% of cases among uveitis patients.
+        `,
         //SUN table and images
         anatLoc : `
         <img src="/img/SUN-ANATOMIC-LOCATION.png" class="img-fluid container-gap"></img>
